@@ -1,4 +1,4 @@
-package database
+package database //暂时用不到了，已经用了GORM
 
 import (
 	"database/sql"

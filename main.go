@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	//bootstrap作为启动用途
 	bootstrap.SetupDB()
 	router := bootstrap.SetupRoute()
 

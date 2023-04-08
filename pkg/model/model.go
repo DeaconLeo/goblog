@@ -1,11 +1,12 @@
 package model
 
+//特点 ORM方法，无需再使用繁琐的SQL语句，类似在QT中用到的SQLTABLEMODLE
 import (
 	// GORM 的 MSYQL 数据库驱动导入
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	gormlogger "gorm.io/gorm/logger"
+	gormlogger "gorm.io/gorm/logger" //区分于我们的logger
 
 	"goblog/pkg/logger"
 )
