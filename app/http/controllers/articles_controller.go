@@ -6,6 +6,7 @@ import (
 	"goblog/pkg/route"
 	"goblog/pkg/types"
 	"net/http"
+	"path/filepath"
 	"strconv"
 	"text/template"
 	"unicode/utf8"
@@ -65,13 +66,19 @@ func (*ArticlesController) Index(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(w, "500 服务器内部错误")
 	} else {
-		// 2. 加载模板
-		tmpl, err := template.ParseFiles("resources/views/articles/index.gohtml")
+		//模板
+		files, err := filepath.Glob("resources/views/layouts/*.gohtml")
+		logger.LogError(err)
+		//fmt.Printf("files: %v\n", files)
+		logger.LogError(err)
+		newFiles := append(files, "resources/views/articles/index.gohtml")
+		//fmt.Printf("newFiles: %v\n", newFiles)
+		//Slice 后加三个点，可以自动将 Slice 分解，并作为可变函数的参数。
+		tmpl, err := template.ParseFiles(newFiles...) //多个文件parse
+		logger.LogError(err)
+		err = tmpl.ExecuteTemplate(w, "app", articles) //name是定义的模拟名称
 		logger.LogError(err)
 
-		// 3. 渲染模板，将所有文章的数据传输进去
-		err = tmpl.Execute(w, articles)
-		logger.LogError(err)
 	}
 }
 
