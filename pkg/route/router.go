@@ -2,6 +2,7 @@ package route
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 
@@ -17,6 +18,7 @@ func SetRoute(r *mux.Router) {
 
 // Name2URL 通过路由名称来获取 URL
 func Name2URL(routeName string, pairs ...string) string {
+	routeName = strings.TrimSpace(routeName)
 	url, err := route.Get(routeName).URL(pairs...)
 	if err != nil {
 		logger.LogError(err)
